@@ -35,7 +35,7 @@ let gravity = 0.4;
 
 let gameOver = false;
 let score = 0;
-let pipeInterval = 2200; // Start interval at 2000 milliseconds
+let pipeInterval = 2400; // Start interval at 2000 milliseconds
 let pipeTimer;
 
 window.onload = function() {
