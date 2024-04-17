@@ -91,7 +91,7 @@ function update() {
             // When the score increments, adjust pipe interval
             if (score % 1 === 0) { // Adjust every time the score increments by 1
                 clearInterval(intervalID);  // Clear current interval
-                pipeInterval = Math.max(300, pipeInterval - 10);  // Reduce interval, with a minimum limit
+                pipeInterval = Math.max(300, pipeInterval - 100);  // Reduce interval, with a minimum limit
                 intervalID = setInterval(placePipes, pipeInterval);  // Set new interval with updated time
             }
         }
