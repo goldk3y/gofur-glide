@@ -1,4 +1,3 @@
-
 //board
 let board;
 let boardWidth = 360;
