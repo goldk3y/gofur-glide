@@ -35,6 +35,8 @@ let gravity = 0.4;
 
 let gameOver = false;
 let score = 0;
+let pipeInterval = 1800;
+let pipeIntervalId;
 
 window.onload = function() {
     board = document.getElementById("board");
@@ -55,10 +57,17 @@ window.onload = function() {
     bottomPipeImg.src = "./bottompipe.png";
 
     requestAnimationFrame(update);
-    setInterval(placePipes, 1800); //every 1.5 seconds
+    pipeIntervalId = setInterval(placePipes, pipeInterval);
+    setInterval(updatePipeInterval, 1000);  // Update the interval every second
     document.addEventListener("keydown", moveBird);
     board.addEventListener("touchstart", moveBird); // Handle touch events for mobile devices
 };
+
+function updatePipeInterval() {
+    clearInterval(pipeIntervalId);
+    pipeInterval += 10;  // Increase the interval by 10ms
+    pipeIntervalId = setInterval(placePipes, pipeInterval);
+}
 
 function update() {
     requestAnimationFrame(update);
