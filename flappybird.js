@@ -6,8 +6,8 @@ let boardHeight = 640;
 let context;
 
 //bird
-let birdWidth = 64; //width/height ratio = 408/228 = 17/12
-let birdHeight = 18.28;
+let birdWidth = 120; //width/height ratio = 408/228 = 17/12
+let birdHeight = 34.27;
 let birdX = boardWidth/8;
 let birdY = boardHeight/2;
 let birdImg;
