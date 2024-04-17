@@ -35,6 +35,8 @@ let gravity = 0.4;
 
 let gameOver = false;
 let score = 0;
+let intervalID;  // Store the interval ID for reference
+let pipeInterval = 1800;  // Initial interval in milliseconds
 
 window.onload = function() {
     board = document.getElementById("board");
@@ -55,7 +57,7 @@ window.onload = function() {
     bottomPipeImg.src = "./bottompipe.png";
 
     requestAnimationFrame(update);
-    setInterval(placePipes, 1800); //every 1.5 seconds
+    intervalID = setInterval(placePipes, pipeInterval); // Set initial pipe placing interval
     document.addEventListener("keydown", moveBird);
     board.addEventListener("touchstart", moveBird); // Handle touch events for mobile devices
 };
@@ -85,6 +87,13 @@ function update() {
         if (!pipe.passed && bird.x > pipe.x + pipe.width) {
             score += 0.5;
             pipe.passed = true;
+
+            // When the score increments, adjust pipe interval
+            if (score % 1 === 0) { // Adjust every time the score increments by 1
+                clearInterval(intervalID);  // Clear current interval
+                pipeInterval = Math.max(300, pipeInterval - 10);  // Reduce interval, with a minimum limit
+                intervalID = setInterval(placePipes, pipeInterval);  // Set new interval with updated time
+            }
         }
 
         if (detectCollision(bird, pipe)) {
@@ -145,6 +154,9 @@ function moveBird(e) {
             pipeArray = [];
             score = 0;
             gameOver = false;
+            clearInterval(intervalID);  // Reset interval when restarting the game
+            pipeInterval = 1800;  // Reset to initial interval
+            intervalID = setInterval(placePipes, pipeInterval);
         }
     }
 };
