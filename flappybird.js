@@ -29,14 +29,12 @@ let topPipeImg;
 let bottomPipeImg;
 
 //physics
-let velocityX = -4; //pipes moving left speed
+let velocityX = -2; //pipes moving left speed
 let velocityY = 0; //bird jump speed
 let gravity = 0.4;
 
 let gameOver = false;
 let score = 0;
-let pipeInterval = 2400; // Start interval at 2000 milliseconds
-let pipeTimer;
 
 window.onload = function() {
     board = document.getElementById("board");
@@ -57,7 +55,7 @@ window.onload = function() {
     bottomPipeImg.src = "./bottompipe.png";
 
     requestAnimationFrame(update);
-    pipeTimer = setInterval(placePipes, pipeInterval); // Initial pipe placement
+    setInterval(placePipes, 1500); //every 1.5 seconds
     document.addEventListener("keydown", moveBird);
     board.addEventListener("touchstart", moveBird); // Handle touch events for mobile devices
 };
@@ -87,7 +85,6 @@ function update() {
         if (!pipe.passed && bird.x > pipe.x + pipe.width) {
             score += 0.5;
             pipe.passed = true;
-            updatePipeInterval(); // Update interval based on score
         }
 
         if (detectCollision(bird, pipe)) {
@@ -103,20 +100,12 @@ function update() {
     //score
     context.fillStyle = "white";
     context.font = "45px sans-serif";
-    context.fillText(Math.floor(score), 5, 45); // Display integer score
+    context.fillText(score, 5, 45);
 
     if (gameOver) {
         context.fillText("GAME OVER", 5, 90);
     }
 };
-
-function updatePipeInterval() {
-    if (Math.floor(score) % 1 === 0) { // Check if the score is a whole number
-        clearInterval(pipeTimer);
-        pipeInterval = 2000 + Math.floor(score) * 10; // Increase interval by 10ms per point
-        pipeTimer = setInterval(placePipes, pipeInterval);
-    }
-}
 
 function placePipes() {
     if (gameOver) {
@@ -156,9 +145,6 @@ function moveBird(e) {
             pipeArray = [];
             score = 0;
             gameOver = false;
-            clearInterval(pipeTimer);
-            pipeInterval = 2000; // Reset interval when game restarts
-            pipeTimer = setInterval(placePipes, pipeInterval);
         }
     }
 };
