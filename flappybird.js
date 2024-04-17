@@ -36,7 +36,7 @@ let gravity = 0.4;
 let gameOver = false;
 let score = 0;
 let intervalID;  // Store the interval ID for reference
-let pipeInterval = 1000;  // Initial interval in milliseconds
+let pipeInterval = 1700;  // Initial interval in milliseconds
 
 window.onload = function() {
     board = document.getElementById("board");
