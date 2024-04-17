@@ -29,14 +29,12 @@ let topPipeImg;
 let bottomPipeImg;
 
 //physics
-let velocityX = -4; //pipes moving left speed
+let velocityX = -2; //pipes moving left speed
 let velocityY = 0; //bird jump speed
 let gravity = 0.4;
 
 let gameOver = false;
 let score = 0;
-let pipeInterval = 1800;
-let pipeIntervalId;
 
 window.onload = function() {
     board = document.getElementById("board");
@@ -57,17 +55,10 @@ window.onload = function() {
     bottomPipeImg.src = "./bottompipe.png";
 
     requestAnimationFrame(update);
-    pipeIntervalId = setInterval(placePipes, pipeInterval);
-    setInterval(updatePipeInterval, 1000);  // Update the interval every second
+    setInterval(placePipes, 1500); //every 1.5 seconds
     document.addEventListener("keydown", moveBird);
     board.addEventListener("touchstart", moveBird); // Handle touch events for mobile devices
 };
-
-function updatePipeInterval() {
-    clearInterval(pipeIntervalId);
-    pipeInterval += 10;  // Increase the interval by 10ms
-    pipeIntervalId = setInterval(placePipes, pipeInterval);
-}
 
 function update() {
     requestAnimationFrame(update);
