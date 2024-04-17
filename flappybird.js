@@ -21,8 +21,8 @@ let bird = {
 
 //pipes
 let pipeArray = [];
-let pipeWidth = 64; //width/height ratio = 384/3072 = 1/8
-let pipeHeight = 512;
+let pipeWidth = 48; //width/height ratio = 384/3072 = 1/8
+let pipeHeight = 384;
 let pipeX = boardWidth;
 let pipeY = 0;
 
