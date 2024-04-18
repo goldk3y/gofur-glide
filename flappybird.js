@@ -37,6 +37,7 @@ let gameOver = false;
 let score = 0;
 let intervalID;  // Store the interval ID for reference
 let pipeInterval = 2000;  // Initial interval in milliseconds
+let lastTouchTime = 0;  // To track double taps
 
 window.onload = function() {
     board = document.getElementById("board");
@@ -59,8 +60,21 @@ window.onload = function() {
     requestAnimationFrame(update);
     intervalID = setInterval(placePipes, pipeInterval); // Set initial pipe placing interval
     document.addEventListener("keydown", moveBird);
-    board.addEventListener("touchstart", moveBird); // Handle touch events for mobile devices
+    board.addEventListener("touchstart", handleTouchStart, { passive: false }); // Handle touch events for mobile devices with enhanced control
 };
+
+function handleTouchStart(e) {
+    e.preventDefault();  // Prevent default behavior such as zooming
+
+    let currentTime = (new Date()).getTime();
+    if (currentTime - lastTouchTime < 300) {  // 300ms is typically used to detect double taps
+        // Prevent double-tap zoom
+        e.preventDefault();
+    }
+    lastTouchTime = currentTime;
+
+    moveBird(e);
+}
 
 function update() {
     requestAnimationFrame(update);
